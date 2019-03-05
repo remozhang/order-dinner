@@ -1,0 +1,14 @@
+{
+    "name": "remozhang/order-dinner",
+    "description": "Just order dinner",
+    "type": "project",
+    "authors": [
+        {
+            "name": "remozhang",
+            "email": "814895077@qq.com"
+        }
+    ],
+    "require": {
+        "baidu/aip-sdk": "^2.2"
+    }
+}
