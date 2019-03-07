@@ -24,6 +24,7 @@ function order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $i = 0)
             throw new Exception('识别验证码识别失败!');
         } else {
             $words = $resultCaptcha['words_result']['0']['words'];
+            $words = trim($words);
         }
         if (strlen($words) < 4 ) {
             throw new Exception('验证码识别位数不够!');
