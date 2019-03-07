@@ -1,3 +1,4 @@
 vendor
 error.log
 img
+src/config.php
