@@ -14,8 +14,9 @@ $savePath = './img/';
 $phpSessId = rand();
 $captcha = downloadCaptcha($fileUrl, $savePath,$phpSessId);
 $orderAccount = $config['orderAccount'];
-order($client, $captcha, $orderAccount, $orderUrl, $phpSessId);
-function order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $i = 0)
+$runTime = 20;
+order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $runTime, $phpSessId);
+function order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $runTime = 10,  $i = 0)
 {
     try {
         $resultCaptcha = $client->basicAccurate($captcha);
@@ -46,14 +47,14 @@ function order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $i = 0)
 
     } catch (Exception $e) {
         $i++;
-        if ($i > 10) {
+        if ($i > $runTime) {
             $log = '今天运行订餐已经连续失败10次!';
             file_put_contents('error.log', date('Y-m-d H:i:s') . ': ' . $log . "\n", FILE_APPEND);
 
         } else {
             $log = $e->getMessage();
             file_put_contents('error.log', date('Y-m-d H:i:s') . ': ' . $log . "\n", FILE_APPEND);
-            order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $i);
+            order($client, $captcha, $orderAccount, $orderUrl, $phpSessId, $runTime, $i);
         }
     }
 
